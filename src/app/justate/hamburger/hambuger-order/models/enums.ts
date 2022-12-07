@@ -5,9 +5,9 @@ export enum BreadType {
 }
 export enum MeatType {
     Beef = 'Manzo',
+    GlutenFree = 'Gluten free',
     Chicken = 'Pollo',
-    Vegetable = 'Vegetale',
-    GlutenFree = 'Gluten free'
+    Vegetable = 'Vegetale'
 }
 export enum Ingredients {
     Lettuce = 'Lattuga',

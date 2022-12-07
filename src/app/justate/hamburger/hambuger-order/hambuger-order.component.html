@@ -1,4 +1,7 @@
-<form class="container" [formGroup]="_orderForm">
+<form class="container" [formGroup]="_orderForm" (ngSubmit)="_onSubmit()">
+  <header>
+    <h1>Fai il tuo ordine</h1>
+  </header>
   <div class="container__row">
     <mat-form-field>
       <mat-label>Numero tavolo </mat-label>
@@ -14,7 +17,7 @@
       <mat-label>Numero hamburger</mat-label>
       <input type="number" autocomplete="off" matInput placeholder="Quanti hamburger?" min="1"
         formControlName="quantity">
-      <mat-error *ngIf="_orderForm.get('quantity')?.hasError('required')">
+      <mat-error class="mat-error__maxwidth" *ngIf="_orderForm.get('quantity')?.hasError('required')">
         Inserire il numero di hamburger
       </mat-error>
       <mat-error *ngIf="_orderForm.get('quantity')?.hasError('min')">
@@ -24,33 +27,50 @@
   </div>
   <ng-container formArrayName="burgers">
     <ng-container *ngFor="let burgerForm of _burgersFormArray?.controls;let index = index">
-      <div class="container__row" [formGroupName]="index">
-        <mat-form-field>
-          <mat-label>Tipo di pane</mat-label>
-          <mat-select formControlName="bread">
-            <ng-container *ngFor="let val of _breads">
-              <mat-option [value]="val">{{ val }}</mat-option>
-            </ng-container>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Hamburger</mat-label>
-          <mat-select formControlName="meat">
-            <ng-container *ngFor="let val of _meats">
-              <mat-option [value]="val">{{ val }}</mat-option>
-            </ng-container>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Ingredienti</mat-label>
-          <mat-select multiple formControlName="bread">
-            <ng-container *ngFor="let val of _ingredients">
-              <mat-option [value]="val">{{ val }}</mat-option>
-            </ng-container>
-          </mat-select>
-        </mat-form-field>
-        <mat-slide-toggle *ngIf="burgerForm.get('meat')?.value === ('Manzo') || burgerForm.get('meat')?.value === ('Gluten free')" style="display:flex" formControlName="mediumRare">Cottura al sangue</mat-slide-toggle>
-      </div>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Hamburger n. {{index + 1}}</mat-card-title>
+          <mat-card-subtitle>Componi il tuo burger</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <ng-container [formGroupName]="index">
+            <div class="container__row">
+              <mat-form-field>
+                <mat-label>Tipo di pane</mat-label>
+                <mat-select formControlName="bread">
+                  <ng-container *ngFor="let val of _breads">
+                    <mat-option [value]="val">{{ val }}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Hamburger</mat-label>
+                <mat-select formControlName="meat">
+                  <ng-container *ngFor="let val of _meats">
+                    <mat-option [value]="val">{{ val }}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Ingredienti</mat-label>
+                <mat-select multiple formControlName="ingredients">
+                  <ng-container *ngFor="let val of _ingredients">
+                    <mat-option [value]="val">{{ val }}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+              <mat-slide-toggle *ngIf="_checkRare(burgerForm)" style="display:flex" formControlName="mediumRare">Cottura
+                al
+                sangue</mat-slide-toggle>
+            </div>
+            <mat-form-field class="container__row--fullwidth">
+              <mat-label>Leave a comment</mat-label>
+              <textarea formControlName="note" matInput placeholder="Inserisci le note..."></textarea>
+            </mat-form-field>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
     </ng-container>
   </ng-container>
+  <button class="container__button" mat-flat-button color="primary">Invia</button>
 </form>

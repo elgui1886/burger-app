@@ -10,6 +10,8 @@ import { HambugerOrderComponent } from './hambuger-order/hambuger-order.componen
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatCardModule} from '@angular/material/card';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 @NgModule({
   declarations: [HambugerOrderComponent],
   imports: [
@@ -25,6 +27,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatIconModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatCardModule,
+    MatSnackBarModule,
+    
     // App
     HamburgerRoutingModule
   ],

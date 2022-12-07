@@ -4,9 +4,10 @@ import {
   Component,
   OnDestroy,
 } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
-import { BreadType, MeatType } from './models/enums';
+import { BreadType, MeatType, Ingredients } from './models/enums';
 @Component({
   selector: 'app-hambuger-order',
   templateUrl: './hambuger-order.component.html',
@@ -25,9 +26,9 @@ export class HambugerOrderComponent implements OnDestroy {
 
   readonly _breads = Object.values(BreadType);
   readonly _meats = Object.values(MeatType);
-  readonly _ingredients = Object.values(BreadType);
+  readonly _ingredients = Object.values(Ingredients);
 
-  constructor(private fb: FormBuilder, cd: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder, cd: ChangeDetectorRef, private _snackBar: MatSnackBar) {
     this._orderForm = fb.group({
       tableNumber: fb.control(null, [Validators.required, Validators.min(1)]),
       quantity: fb.control(null, [Validators.required, Validators.min(1)]),
@@ -37,7 +38,7 @@ export class HambugerOrderComponent implements OnDestroy {
       .get('quantity')
       ?.valueChanges.pipe(takeUntil(this._destroy$), debounceTime(300), distinctUntilChanged())
       .subscribe((val: number) => {
-        if (val == null || val < 0) {
+        if (!val || val < 0) {
           return;
         }
         if (val === this._burgersFormArray?.length) {
@@ -57,8 +58,18 @@ export class HambugerOrderComponent implements OnDestroy {
     this._destroy$.next();
   }
 
-  _checkRare(){
-    
+  _checkRare(burgerForm: AbstractControl<any, any>){
+    const meatValue = burgerForm.get('meat')?.value;
+    return meatValue === ('Manzo') || meatValue === ('Gluten free')
+  }
+
+  _onSubmit() {
+    if(this._orderForm.valid) {
+      localStorage.setItem('ORDER',  JSON.stringify(this._orderForm.value));
+      this._snackBar.open('Ordine salvato correttamente', 'Chiudi', {
+        duration: 5000
+      })
+    }
   }
 
   private _buildHamburgerForm() {
@@ -67,7 +78,8 @@ export class HambugerOrderComponent implements OnDestroy {
       bread: fb.control(null, [Validators.required]),
       meat: fb.control(null, [Validators.required]),
       ingredients: fb.control(null),
-      mediumRare: fb.control(null, [Validators.required]),
+      mediumRare: fb.control(false, [Validators.required]),
+      note: fb.control(null),
     });
     return hf;
   }
