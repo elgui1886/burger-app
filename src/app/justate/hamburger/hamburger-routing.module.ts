@@ -1,6 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HambugerOrderComponent } from './components/hambuger-order/hambuger-order.component';
+import { HambugerOrderComponent } from './hambuger-order/hambuger-order.component';
 
 @Component({
   template: '<section><router-outlet></router-outlet></section>',

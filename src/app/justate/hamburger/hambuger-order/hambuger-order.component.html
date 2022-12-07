@@ -1,0 +1,56 @@
+<form class="container" [formGroup]="_orderForm">
+  <div class="container__row">
+    <mat-form-field>
+      <mat-label>Numero tavolo </mat-label>
+      <input type="number" autocomplete="off" matInput placeholder="Tavolo n. .." min="1" formControlName="tableNumber">
+      <mat-error *ngIf="_orderForm.get('tableNumber')?.hasError('required')">
+        Inserire il numero del tavolo
+      </mat-error>
+      <mat-error *ngIf="_orderForm.get('tableNumber')?.hasError('min')">
+        Inserisci un numero valido
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Numero hamburger</mat-label>
+      <input type="number" autocomplete="off" matInput placeholder="Quanti hamburger?" min="1"
+        formControlName="quantity">
+      <mat-error *ngIf="_orderForm.get('quantity')?.hasError('required')">
+        Inserire il numero di hamburger
+      </mat-error>
+      <mat-error *ngIf="_orderForm.get('quantity')?.hasError('min')">
+        Inserisci un numero valido
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <ng-container formArrayName="burgers">
+    <ng-container *ngFor="let burgerForm of _burgersFormArray?.controls;let index = index">
+      <div class="container__row" [formGroupName]="index">
+        <mat-form-field>
+          <mat-label>Tipo di pane</mat-label>
+          <mat-select formControlName="bread">
+            <ng-container *ngFor="let val of _breads">
+              <mat-option [value]="val">{{ val }}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Hamburger</mat-label>
+          <mat-select formControlName="meat">
+            <ng-container *ngFor="let val of _meats">
+              <mat-option [value]="val">{{ val }}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Ingredienti</mat-label>
+          <mat-select multiple formControlName="bread">
+            <ng-container *ngFor="let val of _ingredients">
+              <mat-option [value]="val">{{ val }}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-slide-toggle *ngIf="_checkRare(burgerForm)" style="display:flex" formControlName="mediumRare">Cottura al sangue</mat-slide-toggle>
+      </div>
+    </ng-container>
+  </ng-container>
+</form>
