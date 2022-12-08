@@ -115,7 +115,7 @@ export class HambugerOrderComponent implements OnDestroy {
       meat: fb.control(null, [Validators.required]),
       ingredients: fb.control(null),
       mediumRare: fb.control(false, [Validators.required]),
-      note: fb.control(null),
+      note: fb.control(null, Validators.maxLength(50)),
     });
     return hf;
   }

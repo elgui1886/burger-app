@@ -12,7 +12,7 @@ mat-card {
   flex-direction: column;
 }
 .mat-error__maxwidth {
-  width: 150%;
+  width: 200%;
 }
 
 // Page styles
@@ -33,6 +33,7 @@ header {
   align-items: flex-start;
   max-width: 95%;
   margin: auto;
+  padding-top: 5vh;
 }
 .container__row {
   flex: 1;
@@ -43,6 +44,10 @@ header {
 .container__row--fullwidth {
   flex: 1;
   max-width: 100%;
+}
+.container__row--centered {
+  @extend .container__row;
+  align-self: center;
 }
 .container__button {
   align-self: stretch;

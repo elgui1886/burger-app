@@ -2,26 +2,26 @@
   <header>
     <h1>Fai il tuo ordine</h1>
   </header>
-  <div class="container__row">
+  <div class="container__row--centered">
     <mat-form-field>
-      <mat-label>Numero del tavolo </mat-label>
+      <mat-label>N. tavolo </mat-label>
       <input type="number" autocomplete="off" matInput placeholder="Tavolo n. .." min="1" formControlName="tableNumber">
       <mat-error class="mat-error__maxwidth" *ngIf="_orderForm.get('tableNumber')?.hasError('required')">
         Campo obbligatorio
       </mat-error>
       <mat-error class="mat-error__maxwidth" *ngIf="_orderForm.get('tableNumber')?.hasError('min')">
-        Inserisci un numero valido
+        Numero non valido
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Numero di hamburger</mat-label>
+      <mat-label>N. hamburgers</mat-label>
       <input type="number" autocomplete="off" matInput placeholder="Quanti hamburger?" min="1"
         formControlName="quantity">
       <mat-error class="mat-error__maxwidth" *ngIf="_orderForm.get('quantity')?.hasError('required')">
         Campo obbligatorio
       </mat-error>
       <mat-error class="mat-error__maxwidth" *ngIf="_orderForm.get('quantity')?.hasError('min')">
-        Inserisci un numero valido
+        Numero non valido
       </mat-error>
     </mat-form-field>
   </div>
@@ -71,6 +71,9 @@
             </div>
             <mat-form-field class="container__row--fullwidth">
               <textarea formControlName="note" matInput placeholder="Inserisci le note..."></textarea>
+              <mat-error class="mat-error__maxwidth" *ngIf="burgerForm.get('note')?.hasError('maxlength')">
+                Note troppo lunghe
+              </mat-error>
             </mat-form-field>
           </ng-container>
         </mat-card-content>
