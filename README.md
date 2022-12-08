@@ -87,4 +87,8 @@ Buona programmazione! 😀
 
 **OPTIONAL BONUS:** Utilizzare la tecnologia [NgRx Store](https://ngrx.io/guide/store) (versione 12.5.1 o superiore) per la memorizzazione dei dati della form in sostituzione al localStorage. Quindi creare le azioni e lo stato necessari per la memorizzazione degli ordini.
 
+## Descrizione soluzione
+
+Vedi [Solution.md](SOLUTION.md)
+
 
