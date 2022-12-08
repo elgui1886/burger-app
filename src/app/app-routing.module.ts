@@ -5,11 +5,11 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'justate',
+    redirectTo: 'hamburger',
   },
   {
     // Default redirect to my application 
-    path: 'justate', loadChildren: () => import('./justate/justate.module').then(order => order.JustAteModule)
+    path: 'hamburger', loadChildren: () => import('./hamburger/hamburger.module').then(m => m.HamburgerModule)
   },
 ];
 
