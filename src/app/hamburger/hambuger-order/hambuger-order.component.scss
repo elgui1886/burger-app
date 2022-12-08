@@ -1,3 +1,4 @@
+// Materials customization
 mat-form-field {
   padding: 4px;
   flex: 1 1 auto;
@@ -6,6 +7,15 @@ mat-card {
   margin: 4px;
   max-width: 100%;
 }
+.mat-mdc-card-content {
+  display: flex;
+  flex-direction: column;
+}
+.mat-error__maxwidth {
+  width: 150%;
+}
+
+// Page styles
 header {
   margin: auto;
   > h1 {
@@ -17,14 +27,6 @@ header {
     -webkit-background-clip: text;
   }
 }
-.mat-mdc-card-content {
-  display: flex;
-  flex-direction: column;
-}
-.mat-error__maxwidth {
-  width: 110%;
-}
-
 .container {
   display: flex;
   flex-direction: column;

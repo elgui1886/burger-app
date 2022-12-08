@@ -1,26 +1,26 @@
-<form class="container" [formGroup]="_orderForm" (ngSubmit)="_onSubmit()">
+<form class="container" [formGroup]="_orderForm" (ngSubmit)="_onFormSubmit()">
   <header>
     <h1>Fai il tuo ordine</h1>
   </header>
   <div class="container__row">
     <mat-form-field>
-      <mat-label>Numero tavolo </mat-label>
+      <mat-label>Numero del tavolo </mat-label>
       <input type="number" autocomplete="off" matInput placeholder="Tavolo n. .." min="1" formControlName="tableNumber">
-      <mat-error *ngIf="_orderForm.get('tableNumber')?.hasError('required')">
-        Inserire il numero del tavolo
+      <mat-error class="mat-error__maxwidth" *ngIf="_orderForm.get('tableNumber')?.hasError('required')">
+        Campo obbligatorio
       </mat-error>
-      <mat-error *ngIf="_orderForm.get('tableNumber')?.hasError('min')">
+      <mat-error class="mat-error__maxwidth" *ngIf="_orderForm.get('tableNumber')?.hasError('min')">
         Inserisci un numero valido
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Numero hamburger</mat-label>
+      <mat-label>Numero di hamburger</mat-label>
       <input type="number" autocomplete="off" matInput placeholder="Quanti hamburger?" min="1"
         formControlName="quantity">
       <mat-error class="mat-error__maxwidth" *ngIf="_orderForm.get('quantity')?.hasError('required')">
-        Inserire il numero di hamburger
+        Campo obbligatorio
       </mat-error>
-      <mat-error *ngIf="_orderForm.get('quantity')?.hasError('min')">
+      <mat-error class="mat-error__maxwidth" *ngIf="_orderForm.get('quantity')?.hasError('min')">
         Inserisci un numero valido
       </mat-error>
     </mat-form-field>
@@ -42,6 +42,9 @@
                     <mat-option [value]="val">{{ val }}</mat-option>
                   </ng-container>
                 </mat-select>
+                <mat-error class="mat-error__maxwidth" *ngIf="burgerForm.get('bread')?.hasError('required')">
+                  Campo obbligatorio
+                </mat-error>
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Hamburger</mat-label>
@@ -50,6 +53,9 @@
                     <mat-option [value]="val">{{ val }}</mat-option>
                   </ng-container>
                 </mat-select>
+                <mat-error class="mat-error__maxwidth" *ngIf="burgerForm.get('meat')?.hasError('required')">
+                  Campo obbligatorio
+                </mat-error>
               </mat-form-field>
               <mat-form-field>
                 <mat-label>Ingredienti</mat-label>
@@ -64,7 +70,6 @@
                 sangue</mat-slide-toggle>
             </div>
             <mat-form-field class="container__row--fullwidth">
-              <mat-label>Leave a comment</mat-label>
               <textarea formControlName="note" matInput placeholder="Inserisci le note..."></textarea>
             </mat-form-field>
           </ng-container>

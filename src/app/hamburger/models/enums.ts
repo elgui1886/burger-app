@@ -16,3 +16,8 @@ export enum Ingredients {
     Maionese = 'Maionese',
     Onion = 'Cipolla'
 }
+
+
+export const BREADS = Object.values(BreadType);
+export const MEATS  = Object.values(MeatType);
+export const INGREDIENTS = Object.values(Ingredients);

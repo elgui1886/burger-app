@@ -12,6 +12,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatCardModule} from '@angular/material/card';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { StoreModule } from '@ngrx/store';
+import { actionReducer } from './state/reducer';
 @NgModule({
   declarations: [HambugerOrderComponent],
   imports: [
@@ -31,7 +33,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatSnackBarModule,
     
     // App
-    HamburgerRoutingModule
+    HamburgerRoutingModule,
+
+    // Ngrx
+    StoreModule.forFeature('order', actionReducer)
   ],
   exports: [HamburgerRoutingModule],
 })
