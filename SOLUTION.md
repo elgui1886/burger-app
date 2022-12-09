@@ -20,12 +20,13 @@ La solutione proposta prevede:
   > Modifica quindi il valore del campo da 5 a 4. Vogliamo che i 4 hamburger che ha gia composto vengano mantenuti.
 
   Al salvataggio i dati possono venire salvati:
-  - nel _localStorage_ con chiave `ORDINE`;
-  - nello stato dello `Store`_ngrx_
+  - come array nel _localStorage_ con chiave `ORDERS`: alla chiusura del tab o del browser la chiave viene cancellata e ricreata con l'ordine successivo;
+  - nello stato dello `Store`_ngrx_: in questo caso viene loggato in console lo stato attuale di tutti gli ordini presi fino a quel momento
 
-Si mette a disposizione del programmatore la possibilità di switchare tra questi due comportamenti senza necessita di ricompilare l'app semplicemente modificando l'apposito file di conigurazione `config.json` (opzionale).   
+Si mette a disposizione del programmatore la possibilità di switchare tra questi due comportamenti semplicemente modificando l'apposito file di conigurazione `config.json` (opzionale).   
+Questo consentirebbe, una volta in produzione, di modificare il comportamento dell'app senza necessita di una nuova build.
 Se non presente, l'applicativo usera il _localStorage_ come `default`.
-Se presente, valorizzando la chiave _enableStore_ a `true` l'applicativo salvera lo stato nell'apposito `Store`_ngrx_.
+Se presente, valorizzando la chiave _enableStore_ a `true` (come da commit finale) l'applicativo salvera lo stato nell'apposito `Store`_ngrx_.
 
 La parte di [configurazione](./src/app/config/) è composta da:
 - [servizio](./src/app/config/config.service.ts) per lettura file configurazione;
