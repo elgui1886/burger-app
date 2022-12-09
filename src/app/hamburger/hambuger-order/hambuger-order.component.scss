@@ -7,6 +7,9 @@ mat-card {
   margin: 4px;
   max-width: 100%;
 }
+mat-slide-toggle {
+  display: flex;
+}
 .mat-mdc-card-content {
   display: flex;
   flex-direction: column;
