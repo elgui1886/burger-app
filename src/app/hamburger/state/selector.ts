@@ -1,8 +1,21 @@
 import { createSelector } from '@ngrx/store';
+import { pipe, scan } from 'rxjs';
 import { Order } from '../models/order';
- 
- 
-export const selectOrder = (state: object) => {
-    const featureState = state as {order: Order};
-    return featureState.order;
+
+const selectOrder = (state: { order: Order }) => {
+  return state.order;
+};
+
+export const orderSelector = createSelector(
+  selectOrder,
+  (state: Order) => state
+);
+
+export const orderSelectors = () => {
+  return pipe(
+    scan((acc: Order[], current: Order) => {
+      acc.push(current);
+      return acc;
+    }, [])
+  );
 };

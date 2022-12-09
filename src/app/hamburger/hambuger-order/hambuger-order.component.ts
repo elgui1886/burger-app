@@ -1,3 +1,4 @@
+import { Order } from './../models/order';
 import { Config } from './../../config/config';
 import { order } from './../state/actions';
 import {
@@ -5,7 +6,6 @@ import {
   ChangeDetectorRef,
   Component,
   OnDestroy,
-  Optional,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -18,7 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import { INGREDIENTS, MEATS, BREADS } from '../models/enums';
-import { selectOrder } from '../state/selector';
+import { orderSelector, orderSelectors } from '../state/selector';
 @Component({
   selector: 'app-hambuger-order',
   templateUrl: './hambuger-order.component.html',
@@ -51,7 +51,7 @@ export class HambugerOrderComponent implements OnDestroy {
     private fb: FormBuilder,
     private _cd: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
-    private _store: Store
+    private _store: Store<{ order: Order }>
   ) {
     this._orderForm = this._buildOrderFormGroup();
     this._observeQuantity();
@@ -80,7 +80,7 @@ export class HambugerOrderComponent implements OnDestroy {
    */
   _onFormSubmit() {
     if (this._orderForm.valid) {
-      Config.enableStore
+      this.storeEnabled
         ? this._store.dispatch(order({ order: this._orderForm.value }))
         : localStorage.setItem('ORDER', JSON.stringify(this._orderForm.value));
       this._snackBar.open('Ordine salvato correttamente', 'Chiudi', {
@@ -157,8 +157,8 @@ export class HambugerOrderComponent implements OnDestroy {
   private _observeState() {
     if (this.storeEnabled) {
       this._store
-        .select((s) => selectOrder(s))
-        .pipe(takeUntil(this._destroy$))
+        .select(orderSelector)
+        .pipe(takeUntil(this._destroy$), orderSelectors())
         .subscribe((val) => {
           console.log(val);
         });
